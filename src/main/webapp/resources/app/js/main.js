@@ -24,13 +24,13 @@ require.config({
             ],
             exports: 'Backbone.Validation'
         },
-        handlebars: {
-            exports: 'Handlebars'
-        },
-        foundation: {
+        bootstrap: {
             deps: [
                 'jquery'
             ]
+        },
+        handlebars: {
+            exports: 'Handlebars'
         }
     },
     paths: {
@@ -41,8 +41,7 @@ require.config({
         'backbone.validation': 'vendor/backbone.validation/src/backbone-validation',
         handlebars: 'vendor/handlebars/handlebars',
         spin: 'vendor/spin.js/dist/spin',
-        foundation: 'vendor/foundation/js/foundation',
-        //bootstrap: 'vendor/bootstrap/dist/js/bootstrap',
+        bootstrap: 'vendor/bootstrap/dist/js/bootstrap',
         text: 'vendor/requirejs-text/text'
     }
 });
@@ -51,12 +50,12 @@ define(function (require) {
     var $ = require('jquery');
     var _ = require('underscore');
     var Backbone = require('backbone');
+    require('bootstrap');
     Backbone.Validation = require('backbone.validation');
-    require('foundation');
+
+    var AppView = require('app/js/views/AppView');
 
     $(document).ready(function () {
-
-        $(document).foundation();
 
         // Global validation configuration
         _.extend(Backbone.Validation.callbacks, {
@@ -73,6 +72,10 @@ define(function (require) {
                 $group.find('.help-block').text(error).removeClass('hidden');
             }
         });
+
+        new AppView({
+            el: $('#main')
+        }).render();
 
         Backbone.history.start();
     });
