@@ -4,10 +4,13 @@ define(function (require) {
     var Backbone = require('backbone');
     var Handlebars = require('handlebars');
 
-    var orderList = require('text!app/js/templates/orderList.hbs');
+    var productSearch = require('text!app/js/templates/productSearch.hbs');
 
-    var OrderListView = Backbone.View.extend({
-        template: Handlebars.compile(orderList),
+    var ProductSearchView = Backbone.View.extend({
+        events: {
+
+        },
+        template: Handlebars.compile(productSearch),
 
         initialize: function () {
 
@@ -17,5 +20,5 @@ define(function (require) {
             return this;
         }
     });
-    return OrderListView;
+    return ProductSearchView;
 });

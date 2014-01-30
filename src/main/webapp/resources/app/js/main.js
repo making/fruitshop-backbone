@@ -54,6 +54,7 @@ define(function (require) {
     Backbone.Validation = require('backbone.validation');
 
     var AppView = require('app/js/views/AppView');
+    var AppRouter = require('app/js/routers/AppRouter');
 
     $(document).ready(function () {
 
@@ -73,9 +74,13 @@ define(function (require) {
             }
         });
 
-        new AppView({
+        var appView = new AppView({
             el: $('#main')
         }).render();
+
+        new AppRouter({
+            appView: appView
+        });
 
         Backbone.history.start();
     });

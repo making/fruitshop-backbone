@@ -6,7 +6,7 @@ define(function (require) {
 
     var master = require('text!app/js/templates/master.hbs');
 
-    return Backbone.View.extend({
+    var MasterView = Backbone.View.extend({
         template: Handlebars.compile(master),
 
         initialize: function () {
@@ -17,4 +17,5 @@ define(function (require) {
             return this;
         }
     });
+    return MasterView;
 });

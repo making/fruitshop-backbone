@@ -8,7 +8,7 @@ define(function (require) {
     var OrderListView = require('app/js/views/OrderListView');
     var MasterView = require('app/js/views/MasterView');
 
-    return Backbone.View.extend({
+    var AppView = Backbone.View.extend({
         events: {
             'show.bs.tab a[data-toggle="tab"]': 'onTabChanged'
         },
@@ -25,30 +25,43 @@ define(function (require) {
             });
 
             this.viewMap = {
-                '#order-form': this.orderFormView,
-                '#order-list': this.orderListView,
-                '#master': this.masterView,
-                '#': this.orderFormView
+                'order-form': this.orderFormView,
+                'order-list': this.orderListView,
+                'master': this.masterView
             }
         },
         render: function () {
-            var hash = '#' + Backbone.history.getHash();
+            var hash = Backbone.history.getHash();
             this.changeView(hash);
             return this;
         },
         changeView: function (hash) {
             var targetView = this.viewMap[hash];
-            if (targetView !== this.currentView) {
-                console.log(targetView);
-                targetView.render();
+            if (targetView && targetView !== this.currentView) {
+                if (this.currentView) {
+                    this.deactivateCurrentTab(this.currentHash);
+                }
+                this.currentHash = hash;
                 this.currentView = targetView;
-                this.$('a[href=' + hash + ']').parent().addClass('active');
+                this.currentView.render();
+                this.activateCurrentTab(hash);
             }
         },
         onTabChanged: function (e) {
             var hash = e.target.hash;
-            this.changeView(hash);
-            Backbone.history.navigate(hash);
+            Backbone.history.navigate(hash, {
+                trigger: true
+            });
+        },
+        activateCurrentTab: function (hash) {
+            this.$('a[href=#' + hash + ']').parent().addClass('active');
+            this.currentView.$el.addClass('active');
+        },
+        deactivateCurrentTab: function (hash) {
+            this.$('a[href=#' + hash + ']').parent().removeClass('active');
+            this.currentView.$el.removeClass('active');
         }
     });
+
+    return AppView;
 });

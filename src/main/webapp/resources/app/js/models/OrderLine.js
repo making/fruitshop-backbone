@@ -1,6 +1,7 @@
 define(function (require) {
     var Backbone = require('backbone');
-    return Backbone.Model.extend({
-        
+    var OrderLine = Backbone.Model.extend({
+
     });
+    return OrderLine;
 });
