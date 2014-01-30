@@ -26,6 +26,10 @@ define(function (require) {
             });
             this.customerSearchView.render();
             this.productSearchView.render();
+            this.listenTo(this.customerSearchView, 'selectedCustomer', _.bind(this.productSearchView.focusProductCode, this.productSearchView));
+            this.listenTo(this.productSearchView, 'addedOrderLine', function (orderLine) {
+                alert(JSON.stringify(orderLine));
+            });
             return this;
         }
     });
