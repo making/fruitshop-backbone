@@ -1,13 +1,10 @@
 define(function (require) {
-    var $ = require('jquery');
     var _ = require('underscore');
     var Backbone = require('backbone');
     var Handlebars = require('handlebars');
 
     var Customer = require('app/js/models/Customer');
     var customerSearch = require('text!app/js/templates/customerSearch.hbs');
-
-    require('backbone.stickit');
 
     var CustomerSearchView = Backbone.View.extend({
         events: {
@@ -30,8 +27,8 @@ define(function (require) {
         },
         render: function () {
             this.$el.html(this.template());
-            this.customerId = this.$('#customerId');
             this.stickit();
+            Backbone.Validation.bind(this);
             return this;
         },
         onCustomerIdEntered: function (e) {
@@ -40,6 +37,8 @@ define(function (require) {
         },
         onSelectedCustomerId: function (e) {
             e.preventDefault();
+            if (!this.model.isValid(true)) return;
+
             this.model.set({
                 'customerName': '山田太郎',
                 'phone': '05055468779',

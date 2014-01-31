@@ -4,6 +4,12 @@ define(function (require) {
         defaults: {
             'selected': false
         },
+        validation: {
+            quantity: {
+                required: true,
+                min: 0
+            }
+        },
         select: function () {
             this.set('selected', true);
         },

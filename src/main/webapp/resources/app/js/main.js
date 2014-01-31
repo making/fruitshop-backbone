@@ -49,6 +49,8 @@ define(function (require) {
     var _ = require('underscore');
     var Backbone = require('backbone');
     require('bootstrap');
+    require('backbone.stickit');
+    require('typeahead');
     Backbone.Validation = require('backbone.validation');
 
     var AppView = require('app/js/views/AppView');

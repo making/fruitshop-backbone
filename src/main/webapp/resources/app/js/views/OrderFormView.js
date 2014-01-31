@@ -1,9 +1,7 @@
 define(function (require) {
-    var $ = require('jquery');
     var _ = require('underscore');
     var Backbone = require('backbone');
     var Handlebars = require('handlebars');
-    require('typeahead');
 
     var OrderLines = require('app/js/collections/OrderLines');
     var CustomerSearchView = require('app/js/views/CustomerSearchView');
