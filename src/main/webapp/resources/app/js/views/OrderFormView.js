@@ -37,6 +37,7 @@ define(function (require) {
             this.listenTo(this.customerSearchView, 'selectedCustomer', _.bind(this.productSearchView.focusProductCode, this.productSearchView));
             this.listenTo(this.productSearchView, 'addedOrderLine', this.addOrderLine);
             this.listenTo(this.collection, 'add remove sort', this.renderOrderLineTable);
+            this.listenTo(this.collection, 'change:quantity', this.updateTotal);
 
             this.total = this.$('#total');
             return this;

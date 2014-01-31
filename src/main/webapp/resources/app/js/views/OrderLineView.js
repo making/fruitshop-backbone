@@ -11,7 +11,10 @@ define(function (require) {
         template: Handlebars.compile(orderLine),
         tagName: 'tr',
         events: {
-            'click': 'onRowClicked'
+            'click': 'onRowClicked',
+            'dblclick': 'openEditMode',
+            'blur [name=quantity]': 'closeEditMode',
+            'keypress [name=quantity]': 'onEnterQuantity'
         },
         bindings: {
             '.subtotal': {
@@ -20,7 +23,8 @@ define(function (require) {
                 update: function ($el, val, model) {
                     $el.text(model.calcSubtotal());
                 }
-            }
+            },
+            '[name=quantity]': 'quantity'
         },
         initialize: function () {
         },
@@ -44,6 +48,18 @@ define(function (require) {
         onRowClicked: function (e) {
             e.preventDefault();
             this.toggleSelected();
+        },
+        openEditMode: function () {
+            this.$el.addClass('editing');
+            this.$('[name=quantity]').focus();
+        },
+        closeEditMode: function () {
+            this.$el.removeClass('editing');
+            this.render();
+        },
+        onEnterQuantity: function (e) {
+            if (e.keyCode !== 13) return;
+            this.closeEditMode();
         }
     });
     return OrderLineView;
