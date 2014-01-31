@@ -30,7 +30,7 @@ define(function (require) {
         },
         render: function () {
             this.$el.html(this.template());
-            this.$customerId = this.$('#customerId');
+            this.customerId = this.$('#customerId');
             this.stickit();
             return this;
         },

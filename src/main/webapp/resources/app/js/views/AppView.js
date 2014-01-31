@@ -14,15 +14,16 @@ define(function (require) {
         },
 
         initialize: function () {
+            // タブを切り替えても状態が残るようにあらかじめrender()しておく。
             this.orderFormView = new OrderFormView({
                 el: this.$('#order-form')
-            });
+            }).render();
             this.orderListView = new OrderListView({
                 el: this.$('#order-list')
-            });
+            }).render();
             this.masterView = new MasterView({
                 el: this.$('#master')
-            });
+            }).render();
 
             this.viewMap = {
                 'order-form': this.orderFormView,
@@ -43,8 +44,8 @@ define(function (require) {
                 }
                 this.currentHash = hash;
                 this.currentView = targetView;
-                this.currentView.render();
                 this.activateCurrentTab(hash);
+                // ここではrender()しない。
             }
         },
         onTabChanged: function (e) {

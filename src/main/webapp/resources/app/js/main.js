@@ -24,11 +24,8 @@ require.config({
             ],
             exports: 'Backbone.Validation'
         },
-        bootstrap: {
-            deps: [
-                'jquery'
-            ]
-        },
+        bootstrap: ['jquery'],
+        typeahead: ['jquery'],
         handlebars: {
             exports: 'Handlebars'
         }
@@ -42,6 +39,7 @@ require.config({
         handlebars: 'vendor/handlebars/handlebars',
         spin: 'vendor/spin.js/dist/spin',
         bootstrap: 'vendor/bootstrap/dist/js/bootstrap',
+        typeahead: 'vendor/typeahead.js/dist/typeahead',
         text: 'vendor/requirejs-text/text'
     }
 });

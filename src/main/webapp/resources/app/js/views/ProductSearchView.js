@@ -5,6 +5,7 @@ define(function (require) {
     var Handlebars = require('handlebars');
 
     var Product = require('app/js/models/Product');
+    var OrderLine = require('app/js/models/OrderLine');
     var productSearch = require('text!app/js/templates/productSearch.hbs');
 
     require('backbone.stickit');
@@ -28,8 +29,8 @@ define(function (require) {
         },
         render: function () {
             this.$el.html(this.template());
-            this.$productCode = this.$('#productCode');
-            this.$quantity = this.$('#quantity');
+            this.productCode = this.$('#productCode');
+            this.quantity = this.$('#quantity');
             this.stickit();
             return this;
         },
@@ -43,7 +44,6 @@ define(function (require) {
                 'productName': 'フルーツギフト',
                 'unitPrice': 7000
             });
-            console.log(this.model.toJSON());
             this.focusQuantity();
         },
         onQuantityEntered: function (e) {
@@ -52,16 +52,16 @@ define(function (require) {
         },
         addOrderLine: function (e) {
             e.preventDefault();
-            this.trigger('addedOrderLine', {
-                product: this.model,
-                quantity: this.$quantity.val()
-            });
+            this.trigger('addedOrderLine', new OrderLine({
+                product: this.model.toJSON(),
+                quantity: this.quantity.val()
+            }));
         },
         focusProductCode: function () {
-            this.$productCode.focus();
+            this.productCode.focus();
         },
         focusQuantity: function () {
-            this.$quantity.focus();
+            this.quantity.focus();
         }
     });
     return ProductSearchView;
