@@ -25,13 +25,12 @@ define(function (require) {
         template: Handlebars.compile(productSearch),
 
         initialize: function () {
-            this.model = new Product();
         },
         render: function () {
             this.$el.html(this.template());
             this.productCode = this.$('#productCode');
             this.quantity = this.$('#quantity');
-            this.stickit();
+            this.resetModel(new Product());
             return this;
         },
         onProductCodeEntered: function (e) {
@@ -56,6 +55,12 @@ define(function (require) {
                 product: this.model.toJSON(),
                 quantity: this.quantity.val()
             }));
+            this.resetModel(new Product());
+        },
+        resetModel: function (m) {
+            this.model = m;
+            this.stickit();
+            this.quantity.val('');
         },
         focusProductCode: function () {
             this.productCode.focus();

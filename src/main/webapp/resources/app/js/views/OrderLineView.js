@@ -24,7 +24,8 @@ define(function (require) {
                     $el.text(model.calcSubtotal());
                 }
             },
-            '[name=quantity]': 'quantity'
+            '[name=quantity]': 'quantity',
+            '.quantity': 'quantity'
         },
         initialize: function () {
         },
@@ -55,7 +56,6 @@ define(function (require) {
         },
         closeEditMode: function () {
             this.$el.removeClass('editing');
-            this.render();
         },
         onEnterQuantity: function (e) {
             if (e.keyCode !== 13) return;
