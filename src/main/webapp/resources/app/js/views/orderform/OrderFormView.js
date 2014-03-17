@@ -4,10 +4,10 @@ define(function (require) {
     var Handlebars = require('handlebars');
 
     var OrderLines = require('app/js/collections/OrderLines');
-    var CustomerSearchView = require('app/js/views/CustomerSearchView');
-    var ProductSearchView = require('app/js/views/ProductSearchView');
-    var OrderLineView = require('app/js/views/OrderLineView');
-    var orderForm = require('text!app/js/templates/orderForm.hbs');
+    var CustomerSearchView = require('app/js/views/orderform/CustomerSearchView');
+    var ProductSearchView = require('app/js/views/orderform/ProductSearchView');
+    var OrderFormLineView = require('app/js/views/orderform/OrderFormLineView');
+    var orderForm = require('text!app/js/templates/orderform/orderForm.hbs');
 
     var OrderFormView = Backbone.View.extend({
         events: {
@@ -47,7 +47,7 @@ define(function (require) {
             this.orderLineTable.empty();
             this.collection.each(function (o) {
                 this.orderLineTable.append(
-                    new OrderLineView({
+                    new OrderFormLineView({
                         model: o
                     }).render().el);
             }, this);

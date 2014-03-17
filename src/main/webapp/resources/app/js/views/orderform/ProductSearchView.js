@@ -5,7 +5,7 @@ define(function (require) {
 
     var Product = require('app/js/models/Product');
     var OrderLine = require('app/js/models/OrderLine');
-    var productSearch = require('text!app/js/templates/productSearch.hbs');
+    var productSearch = require('text!app/js/templates/orderform/productSearch.hbs');
 
     var ProductSearchView = Backbone.View.extend({
         events: {

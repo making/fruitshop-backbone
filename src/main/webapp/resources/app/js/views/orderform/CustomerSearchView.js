@@ -4,7 +4,7 @@ define(function (require) {
     var Handlebars = require('handlebars');
 
     var Customer = require('app/js/models/Customer');
-    var customerSearch = require('text!app/js/templates/customerSearch.hbs');
+    var customerSearch = require('text!app/js/templates/orderform/customerSearch.hbs');
 
     var CustomerSearchView = Backbone.View.extend({
         events: {

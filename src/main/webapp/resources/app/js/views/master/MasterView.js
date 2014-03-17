@@ -3,7 +3,7 @@ define(function (require) {
     var Backbone = require('backbone');
     var Handlebars = require('handlebars');
 
-    var master = require('text!app/js/templates/master.hbs');
+    var master = require('text!app/js/templates/master/master.hbs');
 
     var MasterView = Backbone.View.extend({
         template: Handlebars.compile(master),

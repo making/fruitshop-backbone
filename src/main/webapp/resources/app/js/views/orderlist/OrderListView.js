@@ -3,7 +3,7 @@ define(function (require) {
     var Backbone = require('backbone');
     var Handlebars = require('handlebars');
 
-    var orderList = require('text!app/js/templates/orderList.hbs');
+    var orderList = require('text!app/js/templates/orderlist/orderList.hbs');
 
     var OrderListView = Backbone.View.extend({
         template: Handlebars.compile(orderList),

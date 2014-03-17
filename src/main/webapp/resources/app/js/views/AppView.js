@@ -3,9 +3,9 @@ define(function (require) {
     var Backbone = require('backbone');
     var Handlebars = require('handlebars');
 
-    var OrderFormView = require('app/js/views/OrderFormView');
-    var OrderListView = require('app/js/views/OrderListView');
-    var MasterView = require('app/js/views/MasterView');
+    var OrderFormView = require('app/js/views/orderform/OrderFormView');
+    var OrderListView = require('app/js/views/orderlist/OrderListView');
+    var MasterView = require('app/js/views/master/MasterView');
 
     var AppView = Backbone.View.extend({
         events: {
