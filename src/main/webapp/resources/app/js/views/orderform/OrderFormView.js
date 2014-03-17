@@ -4,14 +4,17 @@ define(function (require) {
     var Handlebars = require('handlebars');
 
     var OrderLines = require('app/js/collections/OrderLines');
+    var Orders = require('app/js/collections/Orders');
+    var Order = require('app/js/models/Order');
     var CustomerSearchView = require('app/js/views/orderform/CustomerSearchView');
     var ProductSearchView = require('app/js/views/orderform/ProductSearchView');
-    var OrderFormLineView = require('app/js/views/orderform/OrderFormLineView');
+    var OrderFormItemView = require('app/js/views/orderform/OrderFormItemView');
     var orderForm = require('text!app/js/templates/orderform/orderForm.hbs');
 
     var OrderFormView = Backbone.View.extend({
         events: {
-            'click #btn-delete-selected-row': 'onDeleteRowClicked'
+            'click #btn-delete-selected-row': 'onDeleteRowClicked',
+            'click #btn-order': 'onOrderClicked'
         },
         template: Handlebars.compile(orderForm),
 
@@ -29,39 +32,55 @@ define(function (require) {
             this.customerSearchView.render();
             this.productSearchView.render();
 
-            this.collection = new OrderLines();
+            this.orderLines = new OrderLines();
+            this.orders = new Orders();
             this.orderLineTable = this.$('#order-lines >> tbody');
 
             this.listenTo(this.customerSearchView, 'selectedCustomer', _.bind(this.productSearchView.focusProductCode, this.productSearchView));
             this.listenTo(this.productSearchView, 'addedOrderLine', this.addOrderLine);
-            this.listenTo(this.collection, 'add remove sort', this.renderOrderLineTable);
-            this.listenTo(this.collection, 'change:quantity', this.updateTotal);
+            this.listenTo(this.orderLines, 'add remove sort reset', this.renderOrderLineTable);
+            this.listenTo(this.orderLines, 'change:quantity', this.updateTotal);
 
             this.total = this.$('#total');
             return this;
         },
         addOrderLine: function (o) {
-            this.collection.add(o);
+            this.orderLines.add(o);
         },
         renderOrderLineTable: function () {
             this.orderLineTable.empty();
-            this.collection.each(function (o) {
+            this.orderLines.each(function (o) {
                 this.orderLineTable.append(
-                    new OrderFormLineView({
+                    new OrderFormItemView({
                         model: o
                     }).render().el);
             }, this);
             this.updateTotal();
         },
         updateTotal: function () {
-            this.total.text(this.collection.calcTotal());
+            this.total.text(this.orderLines.calcTotal());
         },
         onDeleteRowClicked: function (e) {
             e.preventDefault();
-            var selected = this.collection.filter(function (o) {
+            var selected = this.orderLines.filter(function (o) {
                 return o.isSelected();
             });
-            this.collection.remove(selected);
+            this.orderLines.remove(selected);
+        },
+        doOrder: function() {
+            var orderDate = '2014-03-17';
+            var order = new Order({
+                customer: this.customerSearchView.model.toJSON(),
+                orderLines: this.orderLines.toJSON(),
+                orderDate: orderDate
+            });
+            this.orders.create(order);
+        },
+        onOrderClicked: function (e) {
+            e.preventDefault();
+            alert('受注登録しました！');
+            this.doOrder();
+            this.orderLines.reset([]);
         }
     });
     return OrderFormView;

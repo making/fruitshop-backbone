@@ -24,6 +24,12 @@ require.config({
             ],
             exports: 'Backbone.Validation'
         },
+        'Backbone.localStorage': {
+            deps: [
+                'backbone'
+            ],
+            exports: 'Backbone.LocalStorage'
+        },
         bootstrap: ['jquery'],
         typeahead: ['jquery'],
         handlebars: {
@@ -36,6 +42,7 @@ require.config({
         backbone: 'vendor/backbone/backbone',
         'backbone.stickit': 'vendor/backbone.stickit/backbone.stickit',
         'backbone.validation': 'vendor/backbone.validation/src/backbone-validation',
+        'Backbone.localStorage': 'vendor/Backbone.localStorage/backbone.localStorage',
         handlebars: 'vendor/handlebars/handlebars',
         spin: 'vendor/spin.js/dist/spin',
         bootstrap: 'vendor/bootstrap/dist/js/bootstrap',

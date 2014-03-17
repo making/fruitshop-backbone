@@ -3,10 +3,10 @@ define(function (require) {
     var Backbone = require('backbone');
     var Handlebars = require('handlebars');
 
-    var orderLine = require('text!app/js/templates/orderform/orderFormLine.hbs');
+    var orderFormItem = require('text!app/js/templates/orderform/orderFormItem.hbs');
 
-    var OrderLineView = Backbone.View.extend({
-        template: Handlebars.compile(orderLine),
+    var OrderFormItemView = Backbone.View.extend({
+        template: Handlebars.compile(orderFormItem),
         tagName: 'tr',
         events: {
             'click': 'onRowClicked',
@@ -60,5 +60,5 @@ define(function (require) {
             this.closeEditMode();
         }
     });
-    return OrderLineView;
+    return OrderFormItemView;
 });
