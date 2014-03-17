@@ -7,7 +7,7 @@
 
                     <div class="col-sm-8">
                         <div class="input-group">
-                            <input type="text" name="productCode" id="productCode"
+                            <input type="text" name="product.productCode" id="productCode"
                                    class="form-control input-sm">
                                     <span class="input-group-btn">
                                         <button class="btn btn-default btn-sm" type="button">検索</button>
@@ -22,7 +22,7 @@
                     <div class="col-sm-8">
                         <div class="input-group">
                             <input type="number" name="quantity" id="quantity"
-                                   class="form-control input-sm">
+                                   class="form-control input-sm" min="1">
                                     <span class="input-group-btn">
                                         <button class="btn btn-default btn-sm" type="button">追加</button>
                                     </span>
@@ -36,7 +36,7 @@
                     <label for="productName" class="col-sm-4 control-label">商品名</label>
 
                     <div class="col-sm-8">
-                        <p class="form-control-static" id="productName"></p>
+                        <p class="form-control-static" name="product.productName" id="productName"></p>
                         <span class="help-block hidden"></span>
                     </div>
                 </div>
@@ -44,7 +44,7 @@
                     <label for="unitPrice" class="col-sm-4 control-label">単価</label>
 
                     <div class="col-sm-8">
-                        <p class="form-control-static" id="unitPrice"></p>
+                        <p class="form-control-static" name="product.unitPrice" id="unitPrice"></p>
                         <span class="help-block hidden"></span>
                     </div>
                 </div>

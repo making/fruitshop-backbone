@@ -1,11 +1,24 @@
 define(function (require) {
     var Backbone = require('backbone');
-    var OrderLine = Backbone.Model.extend({
+
+    var OrderLine = Backbone.DeepModel.extend({
         defaults: {
             'selected': false
         },
         validation: {
             quantity: {
+                pattern: 'digits',
+                required: true,
+                min: 0
+            },
+            'product.productCode': {
+                required: true
+            },
+            'product.productName': {
+                required: true
+            },
+            'product.unitPrice': {
+                pattern: 'digits',
                 required: true,
                 min: 0
             }

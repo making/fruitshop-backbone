@@ -15,9 +15,10 @@ define(function (require) {
             'keypress #quantity': 'onQuantityEntered'
         },
         bindings: {
-            '#productCode': 'productCode',
-            '#productName': 'productName',
-            '#unitPrice': 'unitPrice'
+            '#productCode': 'product.productCode',
+            '#productName': 'product.productName',
+            '#unitPrice': 'product.unitPrice',
+            '#quantity': 'quantity'
         },
         template: Handlebars.compile(productSearch),
 
@@ -25,9 +26,9 @@ define(function (require) {
         },
         render: function () {
             this.$el.html(this.template());
+            this.resetModel(new OrderLine());
             this.productCode = this.$('#productCode');
             this.quantity = this.$('#quantity');
-            this.resetModel(new Product());
             return this;
         },
         onProductCodeEntered: function (e) {
@@ -36,10 +37,13 @@ define(function (require) {
         },
         onSelectedProductCode: function (e) {
             e.preventDefault();
-            if (!this.model.isValid(true)) return;
+            if (!this.model.isValid('product.productCode')) {
+                this.model.validate();
+                return;
+            }
             this.model.set({
-                'productName': 'フルーツギフト',
-                'unitPrice': 7000
+                'product.productName': 'フルーツギフト',
+                'product.unitPrice': 7000
             });
             this.focusQuantity();
         },
@@ -49,22 +53,14 @@ define(function (require) {
         },
         addOrderLine: function (e) {
             e.preventDefault();
-            var orderLine = new OrderLine({
-                product: this.model.toJSON(),
-                quantity: this.quantity.val()
-            });
-            Backbone.Validation.bind(this, {
-                model: orderLine
-            });
-            if (!orderLine.isValid(true)) return;
-            this.trigger('addedOrderLine', orderLine);
-            this.resetModel(new Product());
+            if (!this.model.isValid(true)) return;
+            this.trigger('addedOrderLine', this.model);
+            this.resetModel(new OrderLine());
         },
         resetModel: function (m) {
             this.model = m;
             this.stickit();
             Backbone.Validation.bind(this);
-            this.quantity.val('');
         },
         focusProductCode: function () {
             this.productCode.focus();

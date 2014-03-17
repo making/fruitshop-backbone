@@ -18,11 +18,17 @@ require.config({
             ],
             exports: 'Backbone'
         },
-        'backbone.validation': {
+        'backbone-validation': {
             deps: [
                 'backbone'
             ],
             exports: 'Backbone.Validation'
+        },
+        'backbone-deep-model': {
+            deps: [
+                'backbone'
+            ],
+            exports: 'Backbone.DeepModel'
         },
         'Backbone.localStorage': {
             deps: [
@@ -41,7 +47,8 @@ require.config({
         underscore: 'vendor/lodash/dist/lodash',
         backbone: 'vendor/backbone/backbone',
         'backbone.stickit': 'vendor/backbone.stickit/backbone.stickit',
-        'backbone.validation': 'vendor/backbone.validation/src/backbone-validation',
+        'backbone-validation': 'vendor/backbone-validation/src/backbone-validation',
+        'backbone-deep-model': 'vendor/backbone-deep-model/distribution/deep-model',
         'Backbone.localStorage': 'vendor/Backbone.localStorage/backbone.localStorage',
         handlebars: 'vendor/handlebars/handlebars',
         spin: 'vendor/spin.js/dist/spin',
@@ -58,7 +65,8 @@ define(function (require) {
     require('bootstrap');
     require('backbone.stickit');
     require('typeahead');
-    Backbone.Validation = require('backbone.validation');
+    Backbone.Validation = require('backbone-validation');
+    Backbone.DeepModel = require('backbone-deep-model');
 
     var AppView = require('app/js/views/AppView');
     var AppRouter = require('app/js/routers/AppRouter');
@@ -68,14 +76,15 @@ define(function (require) {
         // Global validation configuration
         _.extend(Backbone.Validation.callbacks, {
             valid: function (view, attr) {
-                var $el = view.$('[name=' + attr + ']'),
+                var $el = view.$('[name="' + attr + '"]'),
                     $group = $el.closest('.form-group');
                 $group.removeClass('has-error');
                 $group.find('.help-block').text('').addClass('hidden');
             },
             invalid: function (view, attr, error) {
-                var $el = view.$('[name=' + attr + ']'),
+                var $el = view.$('[name="' + attr + '"]'),
                     $group = $el.closest('.form-group');
+                //console.log(attr, error);
                 $group.addClass('has-error');
                 $group.find('.help-block').text(error).removeClass('hidden');
             }
